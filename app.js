@@ -1,9 +1,10 @@
-const startVideoButton = document.querySelector('#start')
-const emitterVideo = document.querySelector('#emitter-video')
-const receiverVideo = document.querySelector('#receiver-video')
+const showMyFaceButton = document.querySelector('#start')
+const showFriendsFaceButton = document.querySelector('#receiver')
+const showMyFaceVideo = document.querySelector('#emitter-video')
+const showFriendsFaceVideo = document.querySelector('#receiver-video')
 const offerTextarea = document.querySelector('#offer')
 
-let p = null
+import { database } from './firebase-init.js'
 
 function bindEvents(p) {
   p.on('error', err => {
@@ -15,43 +16,40 @@ function bindEvents(p) {
   })
 
   p.on('stream', stream => {
-    receiverVideo.srcObject = stream
-    receiverVideo.play()
+    showFriendsFaceVideo.srcObject = stream
+  })
+
+  document.querySelector('#incoming').addEventListener('submit', e => {
+    e.preventDefault()
+    p.signal(JSON.parse(e.target.querySelector('textarea').value))
   })
 }
 
-startVideoButton.addEventListener('click', async e => {
+async function startPeer(initiator) {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: false,
     })
 
-    p = new SimplePeer({
-      initiator: true,
+    let p = new SimplePeer({
+      initiator,
       stream,
       trickle: false,
     })
 
     bindEvents(p)
 
-    emitterVideo.srcObject = stream
-    emitterVideo.play()
+    showMyFaceVideo.srcObject = stream
   } catch (e) {
     console.log(e.message)
   }
+}
+
+showMyFaceButton.addEventListener('click', e => {
+  startPeer(true)
 })
 
-document.querySelector('#incoming').addEventListener('submit', e => {
-  e.preventDefault()
-
-  if (p === null) {
-    p = new SimplePeer({
-      initiator: false,
-      trickle: false,
-    })
-    bindEvents(p)
-  }
-
-  p.signal(JSON.parse(e.target.querySelector('textarea').value))
+showFriendsFaceButton.addEventListener('click', e => {
+  startPeer(false)
 })
