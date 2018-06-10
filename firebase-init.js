@@ -1,10 +1,10 @@
 const config = {
-  apiKey: 'AIzaSyBajPcoloVgJTcE44NhPLvVsqnWG9RSBEE',
-  authDomain: 'simple-webrtc-video-chat.firebaseapp.com',
-  databaseURL: 'https://simple-webrtc-video-chat.firebaseio.com',
-  projectId: 'simple-webrtc-video-chat',
-  storageBucket: 'simple-webrtc-video-chat.appspot.com',
-  messagingSenderId: '748074977719',
+  apiKey: 'AIzaSyDMZZs3Kiic0XEFAxKoZYnR6bbRZwCmGPE',
+  authDomain: 'web-rtc-3f476.firebaseapp.com',
+  databaseURL: 'https://web-rtc-3f476.firebaseio.com',
+  projectId: 'web-rtc-3f476',
+  storageBucket: 'web-rtc-3f476.appspot.com',
+  messagingSenderId: '705697983314',
 }
 firebase.initializeApp(config)
 
