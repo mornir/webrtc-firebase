@@ -20,6 +20,18 @@ function readMessage(data) {
     if (p === null) {
       p = new SimplePeer({
         initiator: false,
+        config: {
+          iceServers: [
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:global.stun.twilio.com:3478?transport=udp' },
+            { urls: 'stun:stun.services.mozilla.com' },
+            {
+              urls: 'turn:numb.viagenie.ca',
+              credential: '****',
+              username: '****',
+            },
+          ],
+        },
       })
       bindEvents(p)
     }
@@ -60,6 +72,18 @@ showMyFaceButton.addEventListener('click', async e => {
     p = new SimplePeer({
       initiator: true,
       stream,
+      config: {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:global.stun.twilio.com:3478?transport=udp' },
+          { urls: 'stun:stun.services.mozilla.com' },
+          {
+            urls: 'turn:numb.viagenie.ca',
+            credential: 'hiragana',
+            username: 'mornirmornir@hotmail.com',
+          },
+        ],
+      },
     })
 
     bindEvents(p)
