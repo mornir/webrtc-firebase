@@ -54,7 +54,7 @@ showMyFaceButton.addEventListener('click', async e => {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
-      audio: true,
+      audio: false,
     })
 
     p = new SimplePeer({
